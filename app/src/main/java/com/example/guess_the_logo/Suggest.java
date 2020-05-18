@@ -8,14 +8,15 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
+import com.example.guess_the_logo.Common.Common;
+
 import java.util.List;
 
-public class Suggest  extends BaseAdapter
-{
+public class Suggest extends BaseAdapter {
 
     private List<String> suggest;
     private Context context;
-    private  MainActivity mainActivity;
+    private MainActivity mainActivity;
 
     public Suggest(List<String> suggest, Context context, MainActivity mainActivity) {
         this.suggest = suggest;
@@ -30,7 +31,7 @@ public class Suggest  extends BaseAdapter
 
     @Override
     public Object getItem(int i) {
-        return suggest.get(i);
+        return suggest.get( i );
     }
 
     @Override
@@ -39,32 +40,59 @@ public class Suggest  extends BaseAdapter
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         Button button;
-        if(view ==null){
-            if(suggest.get( i ).equals( "null" )){
+        if (view == null) {
+            if (suggest.get( i ).equals( "null" )) {
                 button = new Button( context );
-                button.setLayoutParams( new GridView.LayoutParams( 80,80 ) );
-                button.setPadding( 8,8,8,8 );
+                button.setLayoutParams( new GridView.LayoutParams( 80, 80 ) );
+                button.setPadding( 8, 8, 8, 8 );
                 button.setBackgroundColor( Color.GRAY );
-            }
-            else{
+            } else {
                 button = new Button( context );
-                button.setLayoutParams( new GridView.LayoutParams( 80,80 ) );
-                button.setPadding( 8,8,8,8 );
+                button.setLayoutParams( new GridView.LayoutParams( 80, 80 ) );
+                button.setPadding( 8, 8, 8, 8 );
                 button.setBackgroundColor( Color.GRAY );
                 button.setTextColor( Color.GREEN );
-                button.setText( suggest.get(i) );
-                button.setOnClickListener( new View.OnClickListener(){
+                button.setText( suggest.get( i ) );
+                button.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//
+
+                        if (String.valueOf( mainActivity.answer ).contains( suggest.get( i ) )) {
+
+                            char compare = suggest.get( i ).charAt( 0 );
+
+                            for (int index = 0; index < mainActivity.answer.length; index++) {
+                                if (compare == mainActivity.answer[index]) {
+                                    Common.user_submit[index] = compare;
+                                }
+                            }
+
+                            //update
+                            Answer answerAdapter = new Answer( Common.user_submit, context );
+                            mainActivity.gridViewAnswer.setAdapter( answerAdapter );
+                            answerAdapter.notifyDataSetChanged();
+
+                            //remove suggest
+
+                            mainActivity.suggestSource.set( i, "null" );
+                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity );
+                            mainActivity.gridViewSuggest.setAdapter( mainActivity.suggestAdapter );
+                            mainActivity.suggestAdapter.notifyDataSetChanged();
+
+                        } else {
+                            mainActivity.suggestSource.set( i, "null" );
+                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity );
+                            mainActivity.gridViewSuggest.setAdapter( mainActivity.suggestAdapter );
+                            mainActivity.suggestAdapter.notifyDataSetChanged();
+                        }
+
                     }
                 } );
             }
 
-        }
-        else{
+        } else {
             button = (Button) view;
         }
 

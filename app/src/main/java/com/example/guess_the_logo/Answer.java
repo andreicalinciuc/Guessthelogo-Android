@@ -10,7 +10,7 @@ import android.widget.GridLayout;
 import android.widget.GridView;
 
 public class Answer extends BaseAdapter {
-    private  char [] answerCharacter;
+    private char[] answerCharacter;
     private Context context;
 
     public Answer(char[] answerCharacter, Context context) {
@@ -36,15 +36,14 @@ public class Answer extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         Button button;
-        if(view ==null){
-            button = new Button(context);
-            button.setLayoutParams( new GridView.LayoutParams( 80,80 ) );
-            button.setPadding( 8,8,8,8);
+        if (view == null) {
+            button = new Button( context );
+            button.setLayoutParams( new GridView.LayoutParams( 80, 80 ) );
+            button.setPadding( 8, 8, 8, 8 );
             button.setBackgroundColor( Color.GRAY );
             button.setTextColor( Color.GREEN );
-            button.setText(String.valueOf( answerCharacter[i] ));
-        }
-        else
+            button.setText( String.valueOf( answerCharacter[i] ) );
+        } else
             button = (Button) view;
         return button;
     }

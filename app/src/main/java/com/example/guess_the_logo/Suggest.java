@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.example.guess_the_logo.Common.Common;
 
@@ -16,12 +17,14 @@ public class Suggest extends BaseAdapter {
 
     private List<String> suggest;
     private Context context;
-    private MainActivity mainActivity;
+    private newGame mainActivity;
+    private int score;
 
-    public Suggest(List<String> suggest, Context context, MainActivity mainActivity) {
+    public Suggest(List<String> suggest, Context context, newGame mainActivity,int score) {
         this.suggest = suggest;
         this.context = context;
         this.mainActivity = mainActivity;
+        this.score=score;
     }
 
     @Override
@@ -77,13 +80,13 @@ public class Suggest extends BaseAdapter {
                             //remove suggest
 
                             mainActivity.suggestSource.set( i, "null" );
-                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity );
+                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity ,score+1);
                             mainActivity.gridViewSuggest.setAdapter( mainActivity.suggestAdapter );
                             mainActivity.suggestAdapter.notifyDataSetChanged();
 
                         } else {
                             mainActivity.suggestSource.set( i, "null" );
-                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity );
+                            mainActivity.suggestAdapter = new Suggest( mainActivity.suggestSource, context, mainActivity,score-1 );
                             mainActivity.gridViewSuggest.setAdapter( mainActivity.suggestAdapter );
                             mainActivity.suggestAdapter.notifyDataSetChanged();
                         }
@@ -93,9 +96,11 @@ public class Suggest extends BaseAdapter {
             }
 
         } else {
+
             button = (Button) view;
         }
 
+        System.out.println(score);
 
         return button;
     }

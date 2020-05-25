@@ -24,13 +24,6 @@ public class newGame extends AppCompatActivity {
 
     public List<String> suggestSource = new ArrayList<>();
 
-    public Answer answerAdapter;
-    public Suggest suggestAdapter;
-
-    public Button btnSubmit;
-
-    public GridView gridViewAnswer, gridViewSuggest;
-
     public ImageView imgViewQuestion;
 
     int[] image_list = {
@@ -71,7 +64,6 @@ public class newGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_game );
-
         //Init View
         initView();
     }
@@ -150,7 +142,6 @@ public class newGame extends AppCompatActivity {
 
         gridViewSuggest.setAdapter( suggestAdapter );
         gridViewAnswer.setAdapter( answerAdapter );
-
 
     }
 

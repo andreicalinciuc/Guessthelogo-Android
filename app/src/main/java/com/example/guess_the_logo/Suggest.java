@@ -25,6 +25,8 @@ public class Suggest extends BaseAdapter {
         this.context = context;
         this.mainActivity = mainActivity;
         this.score=score;
+        TextView scoreView = mainActivity.findViewById(R.id.score);
+        scoreView.setText(Integer.toString(score));
     }
 
     @Override

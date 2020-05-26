@@ -13,13 +13,4 @@
 
     >
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="0dp"
-        android:text="Share It"
-        tools:layout_editor_absoluteX="141dp"
-        tools:layout_editor_absoluteY="231dp" />
 </RelativeLayout>

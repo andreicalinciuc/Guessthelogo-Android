@@ -65,91 +65,91 @@ public class newGame extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.new_game );
         //Init View
-        initView();
+//        initView();
     }
 
-    private void initView() {
-        gridViewAnswer = (GridView) findViewById( R.id.gridViewAnswer );
-        gridViewSuggest = (GridView) findViewById( R.id.gridViewSuggest );
-        imgViewQuestion = (ImageView) findViewById( R.id.imgLogo );
+//    private void initView() {
+//        gridViewAnswer = (GridView) findViewById( R.id.gridViewAnswer );
+//        gridViewSuggest = (GridView) findViewById( R.id.gridViewSuggest );
+//        imgViewQuestion = (ImageView) findViewById( R.id.imgLogo );
+//
+//        setupList();
+//
+//        btnSubmit = (Button) findViewById( R.id.btnSubmit );
+//        btnSubmit.setOnClickListener( new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String result = "";
+//                for (int i = 0; i < Common.user_submit.length; i++)
+//                    result += String.valueOf( Common.user_submit[i] );
+//                if (result.equals( correct_answer )) {
+//                    Toast.makeText( getApplicationContext(), "Greate  ! This is corect: " + result, Toast.LENGTH_SHORT ).show();
+//
+//                    //Reset
+//                    Common.count = 0;
+//                    Common.user_submit = new char[correct_answer.length()];
+//
+//                    //set new logo
+//                    Answer answerAdapter = new Answer( setupNullList(), getApplicationContext() );
+//                    gridViewAnswer.setAdapter( answerAdapter );
+//                    answerAdapter.notifyDataSetChanged();
+//
+//                    Suggest suggestAdapter = new Suggest( suggestSource, getApplicationContext(), newGame.this ,score);
+//                    gridViewSuggest.setAdapter( suggestAdapter );
+//                    suggestAdapter.notifyDataSetChanged();
+//
+//                    setupList();
+//                } else {
+//                    Toast.makeText( newGame.this, "Incorrect!!!", Toast.LENGTH_SHORT ).show();
+//                }
+//            }
+//        } );
+//    }
 
-        setupList();
-
-        btnSubmit = (Button) findViewById( R.id.btnSubmit );
-        btnSubmit.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String result = "";
-                for (int i = 0; i < Common.user_submit.length; i++)
-                    result += String.valueOf( Common.user_submit[i] );
-                if (result.equals( correct_answer )) {
-                    Toast.makeText( getApplicationContext(), "Greate  ! This is corect: " + result, Toast.LENGTH_SHORT ).show();
-
-                    //Reset
-                    Common.count = 0;
-                    Common.user_submit = new char[correct_answer.length()];
-
-                    //set new logo
-                    Answer answerAdapter = new Answer( setupNullList(), getApplicationContext() );
-                    gridViewAnswer.setAdapter( answerAdapter );
-                    answerAdapter.notifyDataSetChanged();
-
-                    Suggest suggestAdapter = new Suggest( suggestSource, getApplicationContext(), newGame.this ,score);
-                    gridViewSuggest.setAdapter( suggestAdapter );
-                    suggestAdapter.notifyDataSetChanged();
-
-                    setupList();
-                } else {
-                    Toast.makeText( newGame.this, "Incorrect!!!", Toast.LENGTH_SHORT ).show();
-                }
-            }
-        } );
-    }
-
-    private void setupList() {
-        //get random logo
-        Random random = new Random();
-        int imageSelected = image_list[random.nextInt( image_list.length )];
-        imgViewQuestion.setImageResource( imageSelected );
-
-        correct_answer = getResources().getResourceName( imageSelected );
-        correct_answer = correct_answer.substring( correct_answer.lastIndexOf( "/" ) + 1 );
-
-        answer = correct_answer.toCharArray();
-
-        Common.user_submit = new char[answer.length];
-
-        //add Answer character
-        suggestSource.clear();
-        for (char item : answer) {
-            //Add logo name to list
-            suggestSource.add( String.valueOf( item ) );
-        }
-
-        //random add some character
-        for (int i = answer.length; i < answer.length * 2; i++)
-            suggestSource.add( Common.alphabet[random.nextInt( Common.alphabet.length )] );
-
-        //sort random
-        Collections.shuffle( suggestSource );
-
-        //set for GridView
-        answerAdapter = new Answer( setupNullList(), this );
-        suggestAdapter = new Suggest( suggestSource, this, this ,score);
-
-        answerAdapter.notifyDataSetChanged();
-        suggestAdapter.notifyDataSetChanged();
-
-        gridViewSuggest.setAdapter( suggestAdapter );
-        gridViewAnswer.setAdapter( answerAdapter );
-
-    }
-
-    private char[] setupNullList() {
-        char result[] = new char[answer.length];
-        for (int i = 0; i < answer.length; i++)
-            result[i] = ' ';
-        return result;
-    }
+//    private void setupList() {
+//        //get random logo
+//        Random random = new Random();
+//        int imageSelected = image_list[random.nextInt( image_list.length )];
+//        imgViewQuestion.setImageResource( imageSelected );
+//
+//        correct_answer = getResources().getResourceName( imageSelected );
+//        correct_answer = correct_answer.substring( correct_answer.lastIndexOf( "/" ) + 1 );
+//
+//        answer = correct_answer.toCharArray();
+//
+//        Common.user_submit = new char[answer.length];
+//
+//        //add Answer character
+//        suggestSource.clear();
+//        for (char item : answer) {
+//            //Add logo name to list
+//            suggestSource.add( String.valueOf( item ) );
+//        }
+//
+//        //random add some character
+//        for (int i = answer.length; i < answer.length * 2; i++)
+//            suggestSource.add( Common.alphabet[random.nextInt( Common.alphabet.length )] );
+//
+//        //sort random
+//        Collections.shuffle( suggestSource );
+//
+//        //set for GridView
+//        answerAdapter = new Answer( setupNullList(), this );
+//        suggestAdapter = new Suggest( suggestSource, this, this ,score);
+//
+//        answerAdapter.notifyDataSetChanged();
+//        suggestAdapter.notifyDataSetChanged();
+//
+//        gridViewSuggest.setAdapter( suggestAdapter );
+//        gridViewAnswer.setAdapter( answerAdapter );
+//
+//    }
+//
+//    private char[] setupNullList() {
+//        char result[] = new char[answer.length];
+//        for (int i = 0; i < answer.length; i++)
+//            result[i] = ' ';
+//        return result;
+//    }
 }
 

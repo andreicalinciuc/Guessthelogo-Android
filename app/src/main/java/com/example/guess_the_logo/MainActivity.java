@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,11 +27,17 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case R.id.heightScore:
-                startActivity(new Intent(this, hightScore.class));
+                startActivity(new Intent(this, heightScore.class));
                 break;
 
             case R.id.share:
-                Toast.makeText( this, "3", Toast.LENGTH_SHORT ).show();
+                Intent myIntent = new Intent( Intent.ACTION_SEND );
+                myIntent.setType( "text/plain" );
+                String shareBody = "Your body is here";
+                String shareSub = "Your subject";
+                myIntent.putExtra( Intent.EXTRA_SUBJECT, shareBody );
+                myIntent.putExtra( Intent.EXTRA_TEXT, shareBody );
+                startActivity( Intent.createChooser( myIntent, "Share using" ) );
                 break;
 
 

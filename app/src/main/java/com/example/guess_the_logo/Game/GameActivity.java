@@ -80,7 +80,9 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        setResult(RESULT_OK,new Intent());
+        Intent intent = new Intent();
+        intent.putExtra("highScore",game.getHighScore());
+        setResult(RESULT_OK,intent);
         finish();
         return  true;
     }

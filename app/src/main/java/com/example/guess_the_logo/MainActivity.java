@@ -1,10 +1,13 @@
 package com.example.guess_the_logo;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -13,6 +16,9 @@ import com.example.guess_the_logo.Game.GameActivity;
 
 
 public class MainActivity extends AppCompatActivity {
+    SharedPreferences sharedPreferences;
+
+    private static final int GAME_HIGHSCORE_RESULT = 200;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -25,10 +31,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.newGame:
-                startActivity(new Intent(this, GameActivity.class));
-                break;
-
-            case R.id.heightScore:
+                startActivityForResult(new Intent(this, GameActivity.class), GAME_HIGHSCORE_RESULT);
                 break;
 
             case R.id.share:
@@ -46,10 +49,37 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void setHighScore(int score) {
+
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("highScore", score);
+        editor.commit();
+    }
+
+    private int getHighScore() {
+
+        Log.e(null, String.valueOf(sharedPreferences.getInt("highScore", 0)));
+        return sharedPreferences.getInt("highScore", 0);
+        
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        switch (requestCode) {
+            case GAME_HIGHSCORE_RESULT: {
+                setHighScore(data.getIntExtra("highScore", getHighScore()));
+
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+
 
     }
 

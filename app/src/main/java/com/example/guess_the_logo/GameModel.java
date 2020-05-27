@@ -5,7 +5,6 @@ import android.util.Log;
 import android.util.Pair;
 import android.widget.Toast;
 
-import com.example.guess_the_logo.Common.Common;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,7 +24,7 @@ public abstract class GameModel implements Serializable {
     }
 
     public int getCurrentLogo() {
-        return images.get(currentImageIndex).second;
+        return images.get( currentImageIndex ).second;
     }
 
     int score;
@@ -38,22 +37,22 @@ public abstract class GameModel implements Serializable {
         this.highScore = highScore != null ? highScore : 0;
         images = new ArrayList<>();
         for (Integer imgResId : image_list) {
-            images.add(new Pair<String, Integer>(resources.getResourceName(imgResId).split("/")[1], imgResId));
+            images.add( new Pair<String, Integer>( resources.getResourceName( imgResId ).split( "/" )[1], imgResId ) );
         }
         newRound();
     }
 
 
     public void checkName(String logoName) {
-        Log.e(null, logoName);
-        Log.e(null, images.get(currentImageIndex).first);
-        
-        if (logoName.equalsIgnoreCase(images.get(currentImageIndex).first)) {
+        Log.e( null, logoName );
+        Log.e( null, images.get( currentImageIndex ).first );
+
+        if (logoName.equalsIgnoreCase( images.get( currentImageIndex ).first )) {
             score++;
-            highScore = Math.max(highScore, score);
+            highScore = Math.max( highScore, score );
 
         } else {
-            highScore = Math.max(highScore, score);
+            highScore = Math.max( highScore, score );
             score = 0;
 
         }
@@ -62,7 +61,7 @@ public abstract class GameModel implements Serializable {
     }
 
     private void newRound() {
-        currentImageIndex = new Random().nextInt(images.size());
+        currentImageIndex = new Random().nextInt( images.size() );
 
         onNewRound();
     }

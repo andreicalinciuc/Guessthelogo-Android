@@ -24,11 +24,11 @@ public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        game = new GameModel(new ArrayList<Integer>(Arrays.asList(R.drawable.blogger,
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.activity_game );
+        getSupportActionBar().setDisplayHomeAsUpEnabled( true );
+        getSupportActionBar().setDisplayShowHomeEnabled( true );
+        game = new GameModel( new ArrayList<Integer>( Arrays.asList( R.drawable.blogger,
                 R.drawable.deviantart,
                 R.drawable.digg,
                 R.drawable.dropbox,
@@ -52,38 +52,35 @@ public class GameActivity extends AppCompatActivity {
                 R.drawable.vimeo,
                 R.drawable.wordpress,
                 R.drawable.yahoo,
-                R.drawable.youtube)), getResources(), null) {
+                R.drawable.youtube ) ), getResources(), null ) {
             @Override
             public void onNewRound() {
-                TextView scoreView = findViewById(R.id.scoreView);
-                scoreView.setText("Score:" + this.getScore());
-                ImageView logoView = findViewById(R.id.logoView);
-                logoView.setImageResource(this.getCurrentLogo());
+                TextView scoreView = findViewById( R.id.scoreView );
+                scoreView.setText( "Score:" + this.getScore() );
+                ImageView logoView = findViewById( R.id.logoView );
+                logoView.setImageResource( this.getCurrentLogo() );
             }
         };
 
-        Button submitView = findViewById(R.id.submitView);
-        submitView.setOnClickListener(new View.OnClickListener() {
+        Button submitView = findViewById( R.id.submitView );
+        submitView.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText logoInput = findViewById(R.id.logoInput);
+                EditText logoInput = findViewById( R.id.logoInput );
                 String logoInputValue = logoInput.getText().toString();
-                game.checkName(logoInputValue);
-                logoInput.setText("");
+                game.checkName( logoInputValue );
+                logoInput.setText( "" );
             }
-        });
-
-
-
+        } );
 
     }
 
     @Override
     public boolean onSupportNavigateUp() {
         Intent intent = new Intent();
-        intent.putExtra("highScore",game.getHighScore());
-        setResult(RESULT_OK,intent);
+        intent.putExtra( "highScore", game.getHighScore() );
+        setResult( RESULT_OK, intent );
         finish();
-        return  true;
+        return true;
     }
 }

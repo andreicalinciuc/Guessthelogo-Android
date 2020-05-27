@@ -3,7 +3,9 @@ package com.example.guess_the_logo;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -38,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.share:
                 Intent myIntent = new Intent( Intent.ACTION_SEND );
                 myIntent.setType( "text/plain" );
-                String shareBody = "I play https://i.diawi.com/Dbt5Gg and "+"my highScore is:" + getHighScore();
+                String shareBody = "I play https://i.diawi.com/Dbt5Gg and " + "my highScore is:" + sharedPreferences.getInt( "highScore", 0 );
                 myIntent.putExtra( Intent.EXTRA_SUBJECT, shareBody );
                 myIntent.putExtra( Intent.EXTRA_TEXT, shareBody );
                 startActivity( Intent.createChooser( myIntent, "Share using" ) );
@@ -52,34 +54,44 @@ public class MainActivity extends AppCompatActivity {
     private void setHighScore(int score) {
 
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putInt( "highScore", score );
-        editor.commit();
+        editor.putInt( "highScore", score ).commit();
+
     }
 
     private int getHighScore() {
 
-        Log.e( null, String.valueOf( sharedPreferences.getInt( "highScore", 0 ) ) );
         return sharedPreferences.getInt( "highScore", 0 );
 
     }
+    @Override
+    public void onResume(){
+        super.onResume();
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        Log.e( "on acrtivity:", String.valueOf( data.getIntExtra( "highScore", getHighScore()  )));
         switch (requestCode) {
             case GAME_HIGHSCORE_RESULT: {
-                setHighScore( data.getIntExtra( "highScore", getHighScore() ) );
+                assert data != null;
+                if (sharedPreferences.getInt( "highScore", 0 ) < data.getIntExtra( "highScore", getHighScore() ))
+                    setHighScore( data.getIntExtra( "highScore", getHighScore() ) );
             }
         }
         super.onActivityResult( requestCode, resultCode, data );
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.activity_main );
+
         sharedPreferences = getPreferences( MODE_PRIVATE );
         TextView highScoreView = findViewById( R.id.highScoreView );
-        highScoreView.setText( "Your high score is " + sharedPreferences.getInt( "highScore", 0 ) );
+        Integer highScore = sharedPreferences.getInt( "highScore", 0 );
+        Log.e( "in main", String.valueOf( highScore ) );
+        highScoreView.setText( "Your high score is  " + highScore );
 
 
     }

@@ -83,18 +83,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate( savedInstanceState );
-        setContentView( R.layout.activity_main );
-
-        sharedPreferences = getPreferences( MODE_PRIVATE );
+    protected void onStart() {
+        super.onStart();
         TextView highScoreView = findViewById( R.id.highScoreView );
-        Integer highScore = sharedPreferences.getInt( "highScore", 0 );
-        Log.e( "in main", String.valueOf( highScore ) );
+        Integer highScore = getHighScore();
         highScoreView.setText( "Your high score is  " + highScore );
-
-
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        sharedPreferences = getPreferences(MODE_PRIVATE);
+    }
+
 
 }
 
